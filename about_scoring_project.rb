@@ -43,21 +43,27 @@ def score(dice)
     counts[0] -= 3 #Then we substract 3, because we already count points of three ones
   end
 
-  (1..5).each do |i|
+  (1..6).each do |i|
+      if counts[4] >= 4
+        score += 550
+        counts[4] -= 4
+      end
       if counts[i-1] >= 3 # Checking if there some othere three of number other than ones
         score += (i) * 100 # Increment index because it starts with 0, but dice value start with 1. Then multiply to 100 to get points to score correctly
         counts[i-1] - 3 #Then we substract 3, because we already count points of those three numbers
-      end  
+      end 
   end
-
-  if counts[0] > 0
-    score += 100
+  
+  if counts[0] > 0 && counts[0] < 3
+    score += counts[0] * 100 # we get counts of ones that we have, and multiply to * 100
     counts[0] - 1
   end
+  
   if counts[4] > 0 && counts[4] < 3
-    score += 50
+    score += counts[4] * 50 # we get counts of fives that we have, and multiply to * 50
     counts[4] - 1
-  end
+  end 
+  
   return score
 end
 
